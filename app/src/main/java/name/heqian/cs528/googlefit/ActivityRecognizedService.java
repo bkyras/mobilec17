@@ -1,20 +1,26 @@
 package name.heqian.cs528.googlefit;
 
 import android.app.IntentService;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.location.ActivityRecognitionResult;
 import com.google.android.gms.location.DetectedActivity;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Paul on 2/1/16.
  */
 public class ActivityRecognizedService extends IntentService {
+    DBHelper mDbHelper = new DBHelper(getApplicationContext());
 
     public ActivityRecognizedService() {
         super("ActivityRecognizedService");
@@ -30,6 +36,18 @@ public class ActivityRecognizedService extends IntentService {
             ActivityRecognitionResult result = ActivityRecognitionResult.extractResult(intent);
             handleDetectedActivities( result.getProbableActivities() );
         }
+    }
+
+    private void addToDatabase(String activity) {
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        //get current time
+        String timestamp = DateFormat.getTimeInstance().format(DateFormat.LONG);
+        values.put("timestamp", timestamp);
+        values.put("activity", activity);
+
+        db.insert("ActivityTracker", null, values);
     }
 
     private void handleDetectedActivities(List<DetectedActivity> probableActivities) {
@@ -67,6 +85,7 @@ public class ActivityRecognizedService extends IntentService {
                         builder.setSmallIcon( R.mipmap.ic_launcher );
                         builder.setContentTitle( getString( R.string.app_name ) );
                         NotificationManagerCompat.from(this).notify(0, builder.build());
+                        addToDatabase("walking");
                     }
                     break;
                 }
