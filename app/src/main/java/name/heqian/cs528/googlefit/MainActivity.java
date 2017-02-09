@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
@@ -13,6 +14,7 @@ import android.net.Uri;
 import android.widget.ImageView;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -21,13 +23,14 @@ import com.google.android.gms.location.ActivityRecognitionApi;
 import com.google.android.gms.wallet.wobs.TimeInterval;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-
+    MediaPlayer mediaPlayer;
     public GoogleApiClient mApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mediaPlayer = MediaPlayer.create(this, R.raw.beat_02);
 
         mApiClient = new GoogleApiClient.Builder(this)
                 .addApi(ActivityRecognition.API)
@@ -39,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("msg"));
+
+        MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.beat_02);
     }
 
     @Override
@@ -58,29 +63,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     }
 
-    // Handles an image being passed through an intent
-    void handleSendImage(Intent intent){
-        PendingIntent pendingIntent = PendingIntent.getService( this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT );
-        ActivityRecognition.ActivityRecognitionApi.requestActivityUpdates( mApiClient, 3000, pendingIntent );
-
-        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-        if (sharedText != null){
-            if(sharedText.equals("Drive")){
-                ImageView pic = (ImageView) findViewById(R.id.ImageView);
-                pic.setImageResource(R.drawable.in_vehicle);
-            } else if(sharedText.equals("Run")){
-                ImageView pic = (ImageView) findViewById(R.id.ImageView);
-                pic.setImageResource(R.drawable.running);
-            } else if(sharedText.equals("Walk")){
-                ImageView pic = (ImageView) findViewById(R.id.ImageView);
-                pic.setImageResource(R.drawable.walking);
-            } else if (sharedText.equals("Stand")){
-                ImageView pic = (ImageView) findViewById(R.id.ImageView);
-                pic.setImageResource(R.drawable.still);
-            }
-        }
-    }
-
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -93,22 +75,25 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     System.out.println("Driving message received");
                     pic.setImageResource(R.drawable.in_vehicle);
                     actText.setText(R.string.driving);
+                    mediaPlayer.stop();
                 } else if(sharedText.equals("Run")){
                     System.out.println("Running message received");
                     pic.setImageResource(R.drawable.running);
                     actText.setText(R.string.running);
+                    mediaPlayer.start();
                 } else if(sharedText.equals("Walk")){
                     System.out.println("Walking message received");
                     pic.setImageResource(R.drawable.walking);
                     actText.setText(R.string.walking);
+                    mediaPlayer.start();
                 } else if (sharedText.equals("Stand")){
                     System.out.println("Standing message received");
                     pic.setImageResource(R.drawable.still);
                     actText.setText(R.string.still);
+                    //Toast.makeText(this.parent.getActivity(), "You were walking for", Toast.LENGTH_SHORT).show();
+                    mediaPlayer.stop();
                 }
             }
-
-
         }
     };
 

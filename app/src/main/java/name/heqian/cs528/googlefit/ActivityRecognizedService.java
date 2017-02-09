@@ -10,6 +10,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.widget.TextView;
 import android.util.Log;
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.google.android.gms.location.ActivityRecognitionResult;
 import com.google.android.gms.location.DetectedActivity;
@@ -19,11 +20,11 @@ import java.util.Date;
 import java.util.List;
 
 
-/**
- * Created by Paul on 2/1/16.
- */
 public class ActivityRecognizedService extends IntentService {
-	 DBHelper mDbHelper = new DBHelper(getApplicationContext());
+    DBHelper mDbHelper = new DBHelper(this);
+    long lastTime = new Date().getTime();
+    long lastDiff = 0;
+    String currentActivity = "";
 
     public ActivityRecognizedService() {
         super("ActivityRecognizedService");
@@ -41,12 +42,15 @@ public class ActivityRecognizedService extends IntentService {
         }
     }
 		
-		    private void addToDatabase(String activity) {
+    private void addToDatabase(String activity) {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         //get current time
         String timestamp = DateFormat.getTimeInstance().format(DateFormat.LONG);
+        long now = new Date().getTime();
+        lastDiff = now - lastTime;
+        lastTime = now;
         values.put("timestamp", timestamp);
         values.put("activity", activity);
 
@@ -58,9 +62,12 @@ public class ActivityRecognizedService extends IntentService {
             switch( activity.getType() ) {
                 case DetectedActivity.IN_VEHICLE: {
                     Log.e( "ActivityRecogition", "In Vehicle: " + activity.getConfidence() );
-                        if( activity.getConfidence() >= 75 ) {
+                        if( currentActivity != "driving" && activity.getConfidence() >= 75 ) {
+                            addToDatabase("driving");
+                            currentActivity = "driving";
                         Intent shareIntent = new Intent("msg");
                         shareIntent.putExtra(Intent.EXTRA_TEXT, "Drive");
+                        //shareIntent.putExtra("timediff", lastDiff);
                         System.out.println("Driving message sent");
                         sendMessage(shareIntent);
                     }
@@ -68,7 +75,9 @@ public class ActivityRecognizedService extends IntentService {
                 }
                 case DetectedActivity.RUNNING: {
                     Log.e( "ActivityRecogition", "Running: " + activity.getConfidence() );
-                    if( activity.getConfidence() >= 75 ) {
+                    if( currentActivity != "running" && activity.getConfidence() >= 75 ) {
+                        addToDatabase("running");
+                        currentActivity = "running";
                         Intent shareIntent = new Intent("msg");
                         shareIntent.putExtra(Intent.EXTRA_TEXT, "Run");
                         System.out.println("Running message sent");
@@ -78,7 +87,10 @@ public class ActivityRecognizedService extends IntentService {
                 }
                 case DetectedActivity.STILL: {
                     Log.e( "ActivityRecogition", "Still: " + activity.getConfidence() );
-                    if( activity.getConfidence() >= 50 ) {
+                    if( currentActivity != "still" && activity.getConfidence() >= 75 ) {
+                        addToDatabase("still");
+                        Toast.makeText(this, "You were " + currentActivity + " for " + lastDiff, Toast.LENGTH_SHORT).show();
+                        currentActivity = "still";
                         Intent shareIntent = new Intent("msg");
                         shareIntent.putExtra(Intent.EXTRA_TEXT, "Stand");
                         System.out.println("Still message sent");
@@ -88,11 +100,13 @@ public class ActivityRecognizedService extends IntentService {
                 }
                 case DetectedActivity.WALKING: {
                     Log.e( "ActivityRecogition", "Walking: " + activity.getConfidence() );
-                    if( activity.getConfidence() >= 75 ) {
+                    if( currentActivity != "walking" && activity.getConfidence() >= 75 ) {
+                        addToDatabase("walking");
+                        Toast.makeText(this, "You were " + currentActivity + " for " + lastDiff, Toast.LENGTH_SHORT).show();
+                        currentActivity = "walking";
                         Intent shareIntent = new Intent("msg");
                         shareIntent.putExtra(Intent.EXTRA_TEXT,"Walk");
                         System.out.println("Walking message sent");
-												addToDatabase("walking");
                         sendMessage(shareIntent);
                     }
                     break;
