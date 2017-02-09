@@ -11,6 +11,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.media.MediaPlayer;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
+import android.widget.ImageView;
+import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -26,6 +39,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener {
 
+    MediaPlayer mediaPlayer;
     public GoogleApiClient mApiClient;
     public Location mLastLocation;
 
@@ -42,14 +56,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     .addApi(ActivityRecognition.API)
                     .build();
         }
-
         mApiClient.connect();
-
+        mediaPlayer = MediaPlayer.create(this, R.raw.beat_02);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter("msg"));
+
+        MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.beat_02);
     }
 
     protected void onStart() {
@@ -184,6 +202,40 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         PermissionUtils.PermissionDeniedDialog
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
     }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            System.out.println("Inside receiver");
+            String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+            ImageView pic = (ImageView) findViewById(R.id.ImageView);
+            TextView actText = (TextView) findViewById(R.id.textView2);
+            if (sharedText != null){
+                if(sharedText.equals("Drive")){
+                    System.out.println("Driving message received");
+                    pic.setImageResource(R.drawable.in_vehicle);
+                    actText.setText(R.string.driving);
+                    mediaPlayer.stop();
+                } else if(sharedText.equals("Run")){
+                    System.out.println("Running message received");
+                    pic.setImageResource(R.drawable.running);
+                    actText.setText(R.string.running);
+                    mediaPlayer.start();
+                } else if(sharedText.equals("Walk")){
+                    System.out.println("Walking message received");
+                    pic.setImageResource(R.drawable.walking);
+                    actText.setText(R.string.walking);
+                    mediaPlayer.start();
+                } else if (sharedText.equals("Stand")){
+                    System.out.println("Standing message received");
+                    pic.setImageResource(R.drawable.still);
+                    actText.setText(R.string.still);
+                    //Toast.makeText(this.parent.getActivity(), "You were walking for", Toast.LENGTH_SHORT).show();
+                    mediaPlayer.stop();
+                }
+            }
+        }
+    };
 
 }
 
