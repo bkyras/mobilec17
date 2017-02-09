@@ -1,6 +1,8 @@
 package name.heqian.cs528.googlefit;
 
 import android.app.IntentService;
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -12,6 +14,8 @@ import android.content.Intent;
 import com.google.android.gms.location.ActivityRecognitionResult;
 import com.google.android.gms.location.DetectedActivity;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -19,6 +23,7 @@ import java.util.List;
  * Created by Paul on 2/1/16.
  */
 public class ActivityRecognizedService extends IntentService {
+	 DBHelper mDbHelper = new DBHelper(getApplicationContext());
 
     public ActivityRecognizedService() {
         super("ActivityRecognizedService");
@@ -35,9 +40,18 @@ public class ActivityRecognizedService extends IntentService {
             handleDetectedActivities( result.getProbableActivities() );
         }
     }
+		
+		    private void addToDatabase(String activity) {
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        //get current time
+        String timestamp = DateFormat.getTimeInstance().format(DateFormat.LONG);
+        values.put("timestamp", timestamp);
+        values.put("activity", activity);
 
-
+        db.insert("ActivityTracker", null, values);
+    }
 
     private void handleDetectedActivities(List<DetectedActivity> probableActivities) {
         for( DetectedActivity activity : probableActivities ) {
@@ -78,6 +92,7 @@ public class ActivityRecognizedService extends IntentService {
                         Intent shareIntent = new Intent("msg");
                         shareIntent.putExtra(Intent.EXTRA_TEXT,"Walk");
                         System.out.println("Walking message sent");
+												addToDatabase("walking");
                         sendMessage(shareIntent);
                     }
                     break;
