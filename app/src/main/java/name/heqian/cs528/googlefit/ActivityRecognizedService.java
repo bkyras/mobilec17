@@ -2,25 +2,24 @@ package name.heqian.cs528.googlefit;
 
 import android.app.IntentService;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
-import android.view.View;
 
 import com.google.android.gms.location.ActivityRecognitionResult;
 import com.google.android.gms.location.DetectedActivity;
 
 import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Paul on 2/1/16.
  */
 public class ActivityRecognizedService extends IntentService {
-    DBHelper mDbHelper = new DBHelper(getApplicationContext());
+    DBHelper mDbHelper = new DBHelper(this);
 
     public ActivityRecognizedService() {
         super("ActivityRecognizedService");
@@ -37,6 +36,7 @@ public class ActivityRecognizedService extends IntentService {
             handleDetectedActivities( result.getProbableActivities() );
         }
     }
+
 
     private void addToDatabase(String activity) {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
