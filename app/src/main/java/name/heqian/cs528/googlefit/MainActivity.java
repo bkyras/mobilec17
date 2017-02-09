@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public boolean onMyLocationButtonClick() {
         mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
 
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;

@@ -18,6 +18,7 @@ import com.google.android.gms.location.ActivityRecognitionResult;
 import com.google.android.gms.location.DetectedActivity;
 
 import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 
