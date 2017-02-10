@@ -28,6 +28,7 @@ public class ActivityRecognizedService extends IntentService {
     long lastDiff = 0;
     String currentActivity = "";
 
+
     public ActivityRecognizedService() {
         super("ActivityRecognizedService");
     }
@@ -64,27 +65,26 @@ public class ActivityRecognizedService extends IntentService {
                 case DetectedActivity.IN_VEHICLE: {
                     Log.e( "ActivityRecogition", "In Vehicle: " + activity.getConfidence() );
                         if( currentActivity != "driving" && activity.getConfidence() >= 75 ) {
-													addToDatabase("driving");
-													if(currentActivity != "")
-														Toast.makeText(this, "You were " + currentActivity + " for " + lastDiff, Toast.LENGTH_SHORT).show();
-													currentActivity = "driving";
-													Intent shareIntent = new Intent("msg");
-													shareIntent.putExtra(Intent.EXTRA_TEXT, "Drive");
-													//shareIntent.putExtra("timediff", lastDiff);
-													System.out.println("Driving message sent");
-													sendMessage(shareIntent);
-											}
+                            addToDatabase("driving");
+                            Intent shareIntent = new Intent("msg");
+                            shareIntent.putExtra("lastact",currentActivity);
+                            currentActivity = "driving";
+                            shareIntent.putExtra(Intent.EXTRA_TEXT, "Drive");
+                            shareIntent.putExtra("timediff", lastDiff);
+                            System.out.println("Driving message sent");
+                            sendMessage(shareIntent);
+                        }
                     break;
                 }
                 case DetectedActivity.RUNNING: {
                     Log.e( "ActivityRecogition", "Running: " + activity.getConfidence() );
                     if( currentActivity != "running" && activity.getConfidence() >= 75 ) {
                         addToDatabase("running");
-												if(currentActivity != "")
-													Toast.makeText(this, "You were " + currentActivity + " for " + lastDiff, Toast.LENGTH_SHORT).show();
-                        currentActivity = "running";
                         Intent shareIntent = new Intent("msg");
+                        shareIntent.putExtra("lastact",currentActivity);
+                        currentActivity = "running";
                         shareIntent.putExtra(Intent.EXTRA_TEXT, "Run");
+                        shareIntent.putExtra("timediff", lastDiff);
                         System.out.println("Running message sent");
                         sendMessage(shareIntent);
                     }
@@ -94,11 +94,11 @@ public class ActivityRecognizedService extends IntentService {
                     Log.e( "ActivityRecogition", "Still: " + activity.getConfidence() );
                     if( currentActivity != "still" && activity.getConfidence() >= 75 ) {
                         addToDatabase("still");
-												if(currentActivity != "")
-													Toast.makeText(this, "You were " + currentActivity + " for " + lastDiff, Toast.LENGTH_SHORT).show();
-                        currentActivity = "still";
                         Intent shareIntent = new Intent("msg");
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, "Stand");
+                        shareIntent.putExtra("lastact",currentActivity);
+                        currentActivity = "still";
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, "Still");
+                        shareIntent.putExtra("timediff", lastDiff);
                         System.out.println("Still message sent");
                         sendMessage(shareIntent);
                     }
@@ -108,11 +108,11 @@ public class ActivityRecognizedService extends IntentService {
                     Log.e( "ActivityRecogition", "Walking: " + activity.getConfidence() );
                     if( currentActivity != "walking" && activity.getConfidence() >= 75 ) {
                         addToDatabase("walking");
-												if(currentActivity != "")
-													Toast.makeText(this, "You were " + currentActivity + " for " + lastDiff, Toast.LENGTH_SHORT).show();
-                        currentActivity = "walking";
                         Intent shareIntent = new Intent("msg");
+                        shareIntent.putExtra("lastact",currentActivity);
+                        currentActivity = "walking";
                         shareIntent.putExtra(Intent.EXTRA_TEXT,"Walk");
+                        shareIntent.putExtra("timediff", lastDiff);
                         System.out.println("Walking message sent");
                         sendMessage(shareIntent);
                     }

@@ -33,11 +33,11 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@drawable/walking"
+            android:src="@drawable/still"
             android:id ="@+id/ImageView"/>
 
         <TextView
-            android:text="You are walking"
+            android:text="You are still"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
             android:layout_gravity="center_horizontal"

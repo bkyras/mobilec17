@@ -37,11 +37,15 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener {
+
 
     MediaPlayer mediaPlayer;
     public GoogleApiClient mApiClient;
     public Location mLastLocation;
+    MainActivity ref = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,13 +85,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onStop();
     }
 		
-		protected void onResume() {
-			mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.beat_02);
-		}
+    protected void onResume() {
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.beat_02);
+        super.onResume();
+    }
 		
 		@Override
 		public void onDestroy() {
        if (mediaPlayer != null) mediaPlayer.release();
+            super.onDestroy();
    }
 
 
@@ -133,10 +139,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mMap = map;
         mMap.setOnMyLocationButtonClickListener(this);
         enableMyLocation();
-
-
-//
-//
 //        if(mLastLocation != null){
 //            double latitude = mLastLocation.getLatitude();
 //            // Getting longitude of the current location
@@ -148,7 +150,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //            // Zoom in the Google Map
 //            mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
 //        }
-
 
     }
 
@@ -219,6 +220,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         public void onReceive(Context context, Intent intent) {
             System.out.println("Inside receiver");
             String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+            long time = intent.getLongExtra("timediff", 10);
+           // String lastact = intent.getStringExtra("lastact");
             ImageView pic = (ImageView) findViewById(R.id.ImageView);
             TextView actText = (TextView) findViewById(R.id.textView2);
             if (sharedText != null){
@@ -226,24 +229,39 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     System.out.println("Driving message received");
                     pic.setImageResource(R.drawable.in_vehicle);
                     actText.setText(R.string.driving);
+
+                    Toast.makeText(ref, "You were driving for " + time, Toast.LENGTH_SHORT).show();
                     mediaPlayer.stop();
                 } else if(sharedText.equals("Run")){
                     System.out.println("Running message received");
                     pic.setImageResource(R.drawable.running);
                     actText.setText(R.string.running);
-										mediaPlayer.prepare();
+
+                    try {
+                        mediaPlayer.prepare();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    //if(lastact != "")
+                     //   Toast.makeText(ref, "You were " + lastact + " for " + time, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ref, "You were running for " + time, Toast.LENGTH_SHORT).show();
                     mediaPlayer.start();
                 } else if(sharedText.equals("Walk")){
                     System.out.println("Walking message received");
                     pic.setImageResource(R.drawable.walking);
                     actText.setText(R.string.walking);
-										mediaPlayer.prepare();
+                    try {
+                        mediaPlayer.prepare();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(ref, "You were walking for " + time, Toast.LENGTH_SHORT).show();
                     mediaPlayer.start();
-                } else if (sharedText.equals("Stand")){
+                } else if (sharedText.equals("Still")){
                     System.out.println("Standing message received");
                     pic.setImageResource(R.drawable.still);
                     actText.setText(R.string.still);
-                    //Toast.makeText(this.parent.getActivity(), "You were walking for", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ref, "You were still for " + time, Toast.LENGTH_SHORT).show();
                     mediaPlayer.stop();
                 }
             }
