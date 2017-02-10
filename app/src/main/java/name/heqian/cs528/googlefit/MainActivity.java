@@ -77,8 +77,19 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     protected void onStop() {
         mApiClient.disconnect();
+				if (mediaPlayer != null) mediaPlayer.release();
         super.onStop();
     }
+		
+		protected void onResume() {
+			mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.beat_02);
+		}
+		
+		@Override
+		public void onDestroy() {
+       if (mediaPlayer != null) mediaPlayer.release();
+   }
+
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -220,11 +231,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     System.out.println("Running message received");
                     pic.setImageResource(R.drawable.running);
                     actText.setText(R.string.running);
+										mediaPlayer.prepare();
                     mediaPlayer.start();
                 } else if(sharedText.equals("Walk")){
                     System.out.println("Walking message received");
                     pic.setImageResource(R.drawable.walking);
                     actText.setText(R.string.walking);
+										mediaPlayer.prepare();
                     mediaPlayer.start();
                 } else if (sharedText.equals("Stand")){
                     System.out.println("Standing message received");
