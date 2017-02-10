@@ -2,6 +2,8 @@ package name.heqian.cs528.googlefit;
 
 import android.app.IntentService;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
@@ -41,7 +43,6 @@ public class ActivityRecognizedService extends IntentService {
             handleDetectedActivities( result.getProbableActivities() );
         }
     }
-		
     private void addToDatabase(String activity) {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
@@ -63,20 +64,24 @@ public class ActivityRecognizedService extends IntentService {
                 case DetectedActivity.IN_VEHICLE: {
                     Log.e( "ActivityRecogition", "In Vehicle: " + activity.getConfidence() );
                         if( currentActivity != "driving" && activity.getConfidence() >= 75 ) {
-                            addToDatabase("driving");
-                            currentActivity = "driving";
-                        Intent shareIntent = new Intent("msg");
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, "Drive");
-                        //shareIntent.putExtra("timediff", lastDiff);
-                        System.out.println("Driving message sent");
-                        sendMessage(shareIntent);
-                    }
+													addToDatabase("driving");
+													if(currentActivity != "")
+														Toast.makeText(this, "You were " + currentActivity + " for " + lastDiff, Toast.LENGTH_SHORT).show();
+													currentActivity = "driving";
+													Intent shareIntent = new Intent("msg");
+													shareIntent.putExtra(Intent.EXTRA_TEXT, "Drive");
+													//shareIntent.putExtra("timediff", lastDiff);
+													System.out.println("Driving message sent");
+													sendMessage(shareIntent);
+											}
                     break;
                 }
                 case DetectedActivity.RUNNING: {
                     Log.e( "ActivityRecogition", "Running: " + activity.getConfidence() );
                     if( currentActivity != "running" && activity.getConfidence() >= 75 ) {
                         addToDatabase("running");
+												if(currentActivity != "")
+													Toast.makeText(this, "You were " + currentActivity + " for " + lastDiff, Toast.LENGTH_SHORT).show();
                         currentActivity = "running";
                         Intent shareIntent = new Intent("msg");
                         shareIntent.putExtra(Intent.EXTRA_TEXT, "Run");
@@ -89,7 +94,8 @@ public class ActivityRecognizedService extends IntentService {
                     Log.e( "ActivityRecogition", "Still: " + activity.getConfidence() );
                     if( currentActivity != "still" && activity.getConfidence() >= 75 ) {
                         addToDatabase("still");
-                        Toast.makeText(this, "You were " + currentActivity + " for " + lastDiff, Toast.LENGTH_SHORT).show();
+												if(currentActivity != "")
+													Toast.makeText(this, "You were " + currentActivity + " for " + lastDiff, Toast.LENGTH_SHORT).show();
                         currentActivity = "still";
                         Intent shareIntent = new Intent("msg");
                         shareIntent.putExtra(Intent.EXTRA_TEXT, "Stand");
@@ -102,7 +108,8 @@ public class ActivityRecognizedService extends IntentService {
                     Log.e( "ActivityRecogition", "Walking: " + activity.getConfidence() );
                     if( currentActivity != "walking" && activity.getConfidence() >= 75 ) {
                         addToDatabase("walking");
-                        Toast.makeText(this, "You were " + currentActivity + " for " + lastDiff, Toast.LENGTH_SHORT).show();
+												if(currentActivity != "")
+													Toast.makeText(this, "You were " + currentActivity + " for " + lastDiff, Toast.LENGTH_SHORT).show();
                         currentActivity = "walking";
                         Intent shareIntent = new Intent("msg");
                         shareIntent.putExtra(Intent.EXTRA_TEXT,"Walk");
