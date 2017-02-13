@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\Rayan\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\24.0.0\support-annotations-24.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="2943c74db6d4346ab8c6531adac91fa05c137c40">
+        <dex dex="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\pre-dexed\debug\support-annotations-24.0.0_d3c15bc783146928e5d16fb6c194f7a0adc7a85e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="7e92aadd0697922316d1395c1887a23aebec640a">
+        <dex dex="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-base-9.8.0_56dd308b9a6bd32445102632b061042a76df94db.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="04bbbddf868aa02dd33f9e90d8f5d908c360f638">
+        <dex dex="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-location-9.8.0_1ec5630f95864bfb7ac52194f7bc336d0014d952.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
+        <dex dex="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-24.0.0_29e76f20077533b1badd3f729ee3afd658fc3b25.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0\jars\libs\internal_impl-24.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="fcaf463e10e69c1923ccf1edeba3b4196d239e00">
+        <dex dex="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\pre-dexed\debug\internal_impl-24.0.0_82283d17f10d30a353a9d072acb6872a15c05419.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.4.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-23.4.0_7fde911b2da9a50452036405c89f77bc5c9cbd44.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="9f6d236bac26d02b410e4ee186ba517ace5ee661">
+        <dex dex="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-basement-9.8.0_cad59497e1943bbf5544c40b81b2eb0662e0e5e5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="122ec9237acd8a57d974b9d529987f1ee6ca5aea">
+        <dex dex="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-maps-9.8.0_45eda63e04e1b280155cfbfb5714039dc0fece87.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\9.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="bf2e1838e4428616c1aa26edf43de72b5b99bf84">
+        <dex dex="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-tasks-9.8.0_c2e41501e6141ac13f2f738aaa369712957eb0fc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.4.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-23.4.0_48a6f43a740d3f1728957e7e66da576cf5c09410.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.4.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="C:\Users\Rayan\Documents\CS4815\GoogleFit\mobilec17\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.4.0_e2ddc725d01cde44c1fe0911777132e5cfc5071d.jar" />
+    </item>
+
+</items>

@@ -21,12 +21,15 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
+import static name.heqian.cs528.googlefit.MainActivity.currentActivity;
+import static name.heqian.cs528.googlefit.MainActivity.lastDiff;
+import static name.heqian.cs528.googlefit.MainActivity.lastTime;
+
 
 public class ActivityRecognizedService extends IntentService {
     DBHelper mDbHelper = new DBHelper(this);
-    long lastTime = new Date().getTime();
-    long lastDiff = 0;
-    String currentActivity = "";
+
+    //String currentActivity = "";
 
 
     public ActivityRecognizedService() {
@@ -64,21 +67,21 @@ public class ActivityRecognizedService extends IntentService {
             switch( activity.getType() ) {
                 case DetectedActivity.IN_VEHICLE: {
                     Log.e( "ActivityRecogition", "In Vehicle: " + activity.getConfidence() );
-                        if( currentActivity != "driving" && activity.getConfidence() >= 75 ) {
-                            addToDatabase("driving");
-                            Intent shareIntent = new Intent("msg");
-                            shareIntent.putExtra("lastact",currentActivity);
-                            currentActivity = "driving";
-                            shareIntent.putExtra(Intent.EXTRA_TEXT, "Drive");
-                            shareIntent.putExtra("timediff", lastDiff);
-                            System.out.println("Driving message sent");
-                            sendMessage(shareIntent);
-                        }
+                    if( !(currentActivity.equals("driving")) && activity.getConfidence() >= 70 ) {
+                        addToDatabase("driving");
+                        Intent shareIntent = new Intent("msg");
+                        shareIntent.putExtra("lastact",currentActivity);
+                        currentActivity = "driving";
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, "Drive");
+                        shareIntent.putExtra("timediff", lastDiff);
+                        System.out.println("Driving message sent");
+                        sendMessage(shareIntent);
+                    }
                     break;
                 }
                 case DetectedActivity.RUNNING: {
                     Log.e( "ActivityRecogition", "Running: " + activity.getConfidence() );
-                    if( currentActivity != "running" && activity.getConfidence() >= 75 ) {
+                    if( !(currentActivity.equals("running")) && activity.getConfidence() >= 70 ) {
                         addToDatabase("running");
                         Intent shareIntent = new Intent("msg");
                         shareIntent.putExtra("lastact",currentActivity);
@@ -92,7 +95,7 @@ public class ActivityRecognizedService extends IntentService {
                 }
                 case DetectedActivity.STILL: {
                     Log.e( "ActivityRecogition", "Still: " + activity.getConfidence() );
-                    if( currentActivity != "still" && activity.getConfidence() >= 75 ) {
+                    if( !(currentActivity.equals("still")) && activity.getConfidence() >= 70 ) {
                         addToDatabase("still");
                         Intent shareIntent = new Intent("msg");
                         shareIntent.putExtra("lastact",currentActivity);
@@ -106,7 +109,7 @@ public class ActivityRecognizedService extends IntentService {
                 }
                 case DetectedActivity.WALKING: {
                     Log.e( "ActivityRecogition", "Walking: " + activity.getConfidence() );
-                    if( currentActivity != "walking" && activity.getConfidence() >= 75 ) {
+                    if( !(currentActivity.equals("walking")) && activity.getConfidence() >= 70 ) {
                         addToDatabase("walking");
                         Intent shareIntent = new Intent("msg");
                         shareIntent.putExtra("lastact",currentActivity);
