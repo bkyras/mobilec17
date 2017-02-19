@@ -1,0 +1,160 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="layout.PostDetail">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+
+        android:layout_height="300sp"
+        android:layout_width="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Radio GBM"
+                android:layout_width="384dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/eventText"
+                android:gravity="center_horizontal"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Food Present: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/foodText"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+            <TextView
+                android:text="Pizza"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/food"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Votes: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/popText"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+            <TextView
+                android:text="100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pop"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Location: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/locText"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+            <TextView
+                android:text="SH 123"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/loc"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Time: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/timeText"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+            <TextView
+                android:text="3:00 PM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/time"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Description: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/descText"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+            <TextView
+                android:text="Watch out for the ex President"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/desc"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>
