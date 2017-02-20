@@ -1,6 +1,7 @@
 package com.example.rgb.feedme;
 
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,11 @@ import android.view.ViewGroup;
  * Created by Rayan on 2/20/2017.
  */
 
-public class AddPost extends android.support.v4.app.Fragment{
+public class AddPost  extends DialogFragment {
 
 
     // Empty constructor
-
-    static AddPost newInstance() {
-        return new AddPost();
-    }
+    public AddPost(){}
 
 
     @Override
