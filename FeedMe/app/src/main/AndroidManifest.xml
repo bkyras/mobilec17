@@ -17,6 +17,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".PostDetail" />
+
+
+        <fragment android:name="com.example.rgb.feedme.PostDetail">
+
+
+        </fragment>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
