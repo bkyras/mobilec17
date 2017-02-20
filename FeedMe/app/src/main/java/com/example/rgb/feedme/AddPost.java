@@ -1,29 +1,30 @@
 package com.example.rgb.feedme;
 
-
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by ggao on 2/19/2017.
+ * Created by Rayan on 2/20/2017.
  */
 
-public class PostDetail extends android.support.v4.app.Fragment {
+public class AddPost extends android.support.v4.app.Fragment{
 
 
     // Empty constructor
 
-    public PostDetail(){
-
+    static AddPost newInstance() {
+        return new AddPost();
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view  = inflater.inflate(R.layout.fragment_post_detail, container, false);
+        View view  = inflater.inflate(R.layout.add_post, container, false);
         return view;
     }
+
+
 }

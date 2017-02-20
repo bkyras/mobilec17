@@ -11,7 +11,7 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="483dp"
+        android:layout_height="370dp"
         android:id="@+id/feedList" />
 
     <LinearLayout
@@ -22,8 +22,8 @@
         <Button
             android:text="Post"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnAddPost"
+            android:layout_height="70dp"
+            android:id="@+id/addPost_btn"
             android:layout_weight="1" />
     </LinearLayout>
 
