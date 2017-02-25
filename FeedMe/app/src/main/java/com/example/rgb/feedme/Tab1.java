@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by Rayan on 2/18/2017.
  */
@@ -30,9 +32,21 @@ public class Tab1 extends android.support.v4.app.Fragment {
 
         View v  = inflater.inflate(R.layout.tab1, container, false);
 
+        Post p = new Post();
+        p.eventTitle = "Free Pizza Party";
+        p.foodType = "Pizza";
+        p.description = "There is lots of good free food time fun here at pizza land";
 
-        String[] posts = {"pizza", "pasta", "chocolate", "pizza", "pasta", "chocolate","pizza", "pasta", "chocolate", "pizza", "pasta", "chocolate"};
-        ArrayAdapter adapter = new ArrayAdapter<String>(getContext(), R.layout.post_view, posts);
+        Post p2 = new Post();
+        p2.eventTitle = "Free Cookie Party";
+        p2.foodType = "Cookies";
+        p2.description = "There is lots of good free food time fun here at cookie land";
+
+        ArrayList<Post> posts = new ArrayList<Post>();
+        posts.add(p);
+        posts.add(p2);
+
+        PostAdapter adapter = new PostAdapter(getContext(), posts);
         ListView listView = (ListView) v.findViewById(R.id.feedList);
         listView.setAdapter(adapter);
 
@@ -51,11 +65,11 @@ public class Tab1 extends android.support.v4.app.Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = (String) parent.getItemAtPosition(position);
+                Post item = (Post) parent.getItemAtPosition(position);
 
                 FragmentManager fm = getFragmentManager();
-                PostDetail pd = newInstance(item);
-                pd.show(fm, "Post Add Fragment");
+               // PostDetail pd = newInstance(item);
+               // pd.show(fm, "Post Add Fragment");
 
             }
         });

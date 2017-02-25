@@ -27,6 +27,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 
 /**
@@ -152,6 +153,14 @@ public class Tab2 extends android.support.v4.app.Fragment implements GoogleApiCl
         enableMyLocation();
         mMap.setLatLngBoundsForCameraTarget(wpiBound);
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(wpi_CAMERA));
+
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(42.272934, -71.813831))
+                .title("Left Top corner"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(42.274495, -71.807911))
+                .title("Fountain"));
+
     }
 
 
