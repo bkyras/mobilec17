@@ -29,6 +29,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 
 /**
  * Created by Rayan on 2/18/2017.
@@ -45,7 +47,7 @@ public class Tab2 extends android.support.v4.app.Fragment implements GoogleApiCl
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean mPermissionDenied = false;
     private GoogleMap mMap;
-
+    private ArrayList<Post> posts;
 
     private LatLngBounds wpiBound = new LatLngBounds(
             new LatLng(42.272934, -71.813831), new LatLng(42.275255, -71.803986));
@@ -63,6 +65,8 @@ public class Tab2 extends android.support.v4.app.Fragment implements GoogleApiCl
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.tab2, container, false);
+
+
         // Create an instance of GoogleAPIClient.
         if (mApiClient == null) {
             mApiClient = new GoogleApiClient.Builder(getActivity())
@@ -81,6 +85,26 @@ public class Tab2 extends android.support.v4.app.Fragment implements GoogleApiCl
 
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        Post p = new Post();
+        p.eventTitle = "Free Pizza Party";
+        p.foodType = "Pizza";
+        p.longitude = -71.813831;
+        p.latitude = 42.272934 ;
+        p.time = "20";
+        p.description = "There is lots of good free food time fun here at pizza land";
+
+        Post p2 = new Post();
+        p2.eventTitle = "Free Cookie Party";
+        p2.foodType = "Cookies";
+        p2.longitude =  -71.807911;
+        p2.latitude = 42.274495;
+        p2.time = "20";
+        p2.description = "There is lots of good free food time fun here at cookie land";
+
+        posts = new ArrayList<Post>();
+        posts.add(p);
+        posts.add(p2);
 
         //Returning the layout file after inflating
         //Change R.layout.tab1 in you classes
@@ -153,13 +177,9 @@ public class Tab2 extends android.support.v4.app.Fragment implements GoogleApiCl
         enableMyLocation();
         mMap.setLatLngBoundsForCameraTarget(wpiBound);
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(wpi_CAMERA));
+        //add pins from the given list of posts
+        dropPins(mMap, posts);
 
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(42.272934, -71.813831))
-                .title("Left Top corner"));
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(42.274495, -71.807911))
-                .title("Fountain"));
 
     }
 
@@ -234,6 +254,14 @@ public class Tab2 extends android.support.v4.app.Fragment implements GoogleApiCl
     }
 
 
+    public void dropPins(GoogleMap mMap, ArrayList<Post> posts){
+        for(Post p: posts){
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(p.latitude, p.longitude))
+                    .title(p.eventTitle));
 
+        }
+
+    }
 
 }
