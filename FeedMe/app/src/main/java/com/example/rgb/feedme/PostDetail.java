@@ -32,12 +32,25 @@ public class PostDetail extends DialogFragment {
         if(args != null) {
             String event = args.getString("eventTitle");
             String food = args.getString("foodType");
+            String location = args.getString("location");
             Double longitude = args.getDouble("long");
             Double lat = args.getDouble("lat");
             String time = args.getString("time");
             String desc = args.getString("description");
-            TextView textview = (TextView) v.findViewById(R.id.foodText);
-            textview.setText(food);
+
+            TextView eventV = (TextView) v.findViewById(R.id.eventText);
+            TextView foodV = (TextView) v.findViewById(R.id.food);
+            // TextView popV = (TextView) v.findViewById(R.id.pop);
+            TextView locV = (TextView) v.findViewById(R.id.loc);
+            TextView timeV = (TextView) v.findViewById(R.id.time);
+            TextView descV = (TextView) v.findViewById(R.id.desc);
+
+            eventV.setText(event);
+            foodV.setText(food);
+            locV.setText(location);
+            timeV.setText(time);
+            descV.setText(desc);
+
         }
 
 

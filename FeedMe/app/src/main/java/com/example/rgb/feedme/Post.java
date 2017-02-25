@@ -7,6 +7,7 @@ package com.example.rgb.feedme;
 public class Post {
     String eventTitle;
     String foodType;
+    String location;
     double longitude;
     double latitude;
     String time;

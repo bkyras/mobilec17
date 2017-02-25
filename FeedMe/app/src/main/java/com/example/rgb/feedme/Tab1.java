@@ -38,6 +38,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
         Post p = new Post();
         p.eventTitle = "Free Pizza Party";
         p.foodType = "Pizza";
+        p.location = "Fountain";
         p.longitude = 2.0;
         p.latitude = 2.0;
         p.time = "20";
@@ -46,6 +47,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
         Post p2 = new Post();
         p2.eventTitle = "Free Cookie Party";
         p2.foodType = "Cookies";
+        p2.location = "Fountain";
         p2.longitude = 2.0;
         p2.latitude = 2.0;
         p2.time = "20";
@@ -95,22 +97,16 @@ public class Tab1 extends android.support.v4.app.Fragment {
         String foodType = post.foodType;
         double longitude = post.longitude;
         double latitude = post.latitude;
+        String location = post.location;
         String time = post.time;
         String description = post.description;
-
-        System.out.println(eventTitle);
-        System.out.println(foodType);
-        System.out.println(longitude);
-        System.out.println(latitude);
-        System.out.println(time);
-        System.out.println(description);
-
 
 
         Bundle args = new Bundle();
 
-        args.putString("eventTitle", post.eventTitle);
+
         args.putString("eventTitle", eventTitle);
+        args.putString("location", location);
         args.putString("foodType",foodType);
         args.putDouble("long",longitude);
         args.putDouble("lat",latitude);
