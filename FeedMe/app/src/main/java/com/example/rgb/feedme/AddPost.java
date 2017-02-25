@@ -8,9 +8,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -34,7 +37,7 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean mPermissionDenied = false;
     Location mLastLocation;
-
+    public View view;
     // Empty constructor
     public AddPost() {
     }
@@ -43,7 +46,7 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.add_post, container, false);
+         view = inflater.inflate(R.layout.add_post, container, false);
 
         if (mApiClient == null) {
             mApiClient = new GoogleApiClient.Builder(getActivity())
