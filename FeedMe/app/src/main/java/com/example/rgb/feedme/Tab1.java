@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -52,26 +53,8 @@ public class Tab1 extends android.support.v4.app.Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String item = (String) parent.getItemAtPosition(position);
 
-//                Intent intent = new Intent(getActivity(),PostDetail.class);
-//
-//                intent.putExtra("FOOD","pizza");
-//                startActivity(intent);
-
-                // Create new fragment and transaction
-                //PostDetail newFragment = new PostDetail();
-                // consider using Java coding conventions (upper first char class names!!!)
-                //FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack
-                //transaction.replace(R.id.output, newFragment);
-                //transaction.addToBackStack(R.id.tab1Layout);
-
-                // Commit the transaction
-                //transaction.commit();
-
                 FragmentManager fm = getFragmentManager();
-                PostDetail pd = new PostDetail();
+                PostDetail pd = newInstance(item);
                 pd.show(fm, "Post Add Fragment");
 
             }
@@ -81,7 +64,14 @@ public class Tab1 extends android.support.v4.app.Fragment {
         return v;
     }
 
-
+    public static PostDetail newInstance(String post) {
+        PostDetail f = new PostDetail();
+        // Supply index input as an argument.
+        Bundle args = new Bundle();
+        args.putString("post", post);
+        f.setArguments(args);
+        return f;
+    }
 
 
 

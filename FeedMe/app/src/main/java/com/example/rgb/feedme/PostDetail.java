@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * Created by ggao on 2/19/2017.
@@ -23,12 +24,16 @@ public class PostDetail extends DialogFragment {
 
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle input) {
 
         View v  = inflater.inflate(R.layout.fragment_post_detail, container, false);
 
-        //getDialog().setTitle("Add a Post");
-       // Bundle extras = getActivity().getIntent().getExtras();
+        input = getArguments();
+        String post = input.getString("post");
+
+        TextView textview = (TextView) getView().findViewById(R.id.foodText);
+
+        textview.setText(post);
 
         System.out.println("Creating a view");
 
