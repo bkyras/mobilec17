@@ -68,8 +68,8 @@ public class Tab1 extends android.support.v4.app.Fragment {
                 Post item = (Post) parent.getItemAtPosition(position);
 
                 FragmentManager fm = getFragmentManager();
-               // PostDetail pd = newInstance(item);
-               // pd.show(fm, "Post Add Fragment");
+                PostDetail pd = newInstance(item);
+                pd.show(fm, "Post Add Fragment");
 
             }
         });
@@ -78,11 +78,11 @@ public class Tab1 extends android.support.v4.app.Fragment {
         return v;
     }
 
-    public static PostDetail newInstance(String post) {
+    public static PostDetail newInstance(Post post) {
         PostDetail f = new PostDetail();
         // Supply index input as an argument.
         Bundle args = new Bundle();
-        args.putString("post", post);
+        args.putString("eventTitle", post.eventTitle);
         f.setArguments(args);
         return f;
     }

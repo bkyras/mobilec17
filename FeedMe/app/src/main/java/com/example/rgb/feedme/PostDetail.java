@@ -24,16 +24,21 @@ public class PostDetail extends DialogFragment {
 
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle input) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v  = inflater.inflate(R.layout.fragment_post_detail, container, false);
+        Bundle args = getArguments();
+        if(args != null){
 
-        input = getArguments();
-        String post = input.getString("post");
+            String event  = args.getString("eventTitle");
 
-        TextView textview = (TextView) getView().findViewById(R.id.foodText);
 
-        textview.setText(post);
+        }
+        //String eventTitle = b.getString("eventTitle");
+//
+//        TextView textview = (TextView) getView().findViewById(R.id.foodText);
+//
+//        textview.setText(post);
 
         System.out.println("Creating a view");
 
