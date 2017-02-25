@@ -177,20 +177,9 @@ public class Tab2 extends android.support.v4.app.Fragment implements GoogleApiCl
         enableMyLocation();
         mMap.setLatLngBoundsForCameraTarget(wpiBound);
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(wpi_CAMERA));
+        //add pins from the given list of posts
+        dropPins(mMap, posts);
 
-
-        for(Post p: posts){
-            mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(p.latitude, p.longitude))
-                    .title(p.eventTitle));
-
-        }
-//        mMap.addMarker(new MarkerOptions()
-//                .position(new LatLng(42.272934, -71.813831))
-//                .title("Left Top corner"));
-//        mMap.addMarker(new MarkerOptions()
-//                .position(new LatLng(42.274495, -71.807911))
-//                .title("Fountain"));
 
     }
 
@@ -265,6 +254,14 @@ public class Tab2 extends android.support.v4.app.Fragment implements GoogleApiCl
     }
 
 
+    public void dropPins(GoogleMap mMap, ArrayList<Post> posts){
+        for(Post p: posts){
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(p.latitude, p.longitude))
+                    .title(p.eventTitle));
 
+        }
+
+    }
 
 }
