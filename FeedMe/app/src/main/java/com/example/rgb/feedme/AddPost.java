@@ -1,16 +1,21 @@
 package com.example.rgb.feedme;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -21,6 +26,9 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 /**
  * Created by Rayan on 2/20/2017.
  */
@@ -29,6 +37,7 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
 
     public GoogleApiClient mApiClient;
     public LocationRequest mLocationRequest;
+    public DBHelper dbHelper;
     public double currentLatitude;
     public double currentLongitude;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
@@ -44,6 +53,7 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.add_post, container, false);
+        dbHelper = new DBHelper(getContext());
 
         if (mApiClient == null) {
             mApiClient = new GoogleApiClient.Builder(getActivity())
@@ -59,6 +69,16 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
 
+
+        Button addButton = (Button) view.findViewById(R.id.submit_post_btn);
+
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                addToDatabase();
+            }});
 
         return view;
     }
@@ -154,5 +174,30 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
     }
 
 
+    public void addToDatabase() {
+        System.out.println("Adding to database");
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        String timestamp = DateFormat.getTimeInstance().format(DateFormat.LONG);
+        long now = new Date().getTime();
+
+        TextView eventTitle = (TextView) getView().findViewById(R.id.event_field);
+        TextView foodType = (TextView) getView().findViewById(R.id.food_field);
+        TextView location = (TextView) getView().findViewById(R.id.location_field);
+        TextView time = (TextView) getView().findViewById(R.id.time_field);
+        TextView description = (TextView) getView().findViewById(R.id.descripText);
+
+        values.put("eventTitle", eventTitle.getText().toString());
+        values.put("foodType", foodType.getText().toString());
+        values.put("location", location.getText().toString());
+        values.put("latitude", currentLatitude);
+        values.put("longitude", currentLongitude);
+        values.put("time", time.getText().toString());
+        values.put("description", description.getText().toString());
+
+        db.insert("FeedMePosts", null, values);
+        dismiss();
+    }
 
 }
