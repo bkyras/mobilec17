@@ -9,7 +9,6 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
 
@@ -18,13 +17,13 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
 
             android:layout_height="wrap_content">
 
             <EditText
-                android:text="Enter Event Name Here"
-                android:layout_width="384dp"
+                android:text="Event Name Here"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/event_field"
                 android:gravity="center_horizontal"
@@ -35,25 +34,25 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="25sp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="Food Present: "
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:text="Food"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/food_title"
-                android:layout_weight="1"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:gravity="center_vertical" />
 
             <EditText
-                android:text="i.e. Pizza"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/food_field"
                 android:layout_weight="1"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:hint="e.g. pizza"
+                android:lines="1" />
 
         </LinearLayout>
 
@@ -61,12 +60,11 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="25sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="Location: "
+                android:text="Location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/location_title"
@@ -74,24 +72,24 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:text="i.e. SH 123, or CC main floor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/location_field"
                 android:layout_weight="1"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:hint="e.g. SH 123"
+                android:lines="1" />
 
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="25sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="Time: "
+                android:text="Time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/time_title"
@@ -112,24 +110,25 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="25sp"
             android:layout_width="wrap_content"
-            android:layout_height="141dp"
-            android:layout_weight="0.68">
+            android:layout_height="match_parent"
+            android:layout_weight=".3">
 
             <TextView
-                android:text="Description: "
-                android:layout_width="116dp"
+                android:text="Description"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/description_title"
                 android:textSize="18sp" />
 
-            <TextView
-                android:text="Enter any additional details here"
+            <EditText
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/description_field"
-                android:textSize="18sp" />
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/descripText"
+                android:layout_weight="1"
+                android:hint="Type your description here" />
 
         </LinearLayout>
 
@@ -137,9 +136,8 @@
             android:text="Add Event"
             android:layout_height="wrap_content"
             android:id="@+id/submit_post_btn"
-            android:layout_weight="1"
             android:elevation="0dp"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal" />
 
     </LinearLayout>
