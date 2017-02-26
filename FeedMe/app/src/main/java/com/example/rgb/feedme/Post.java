@@ -12,6 +12,7 @@ public class Post {
     double latitude;
     String time;
     String description;
+    int upvotes;
 
     public Post() {
 

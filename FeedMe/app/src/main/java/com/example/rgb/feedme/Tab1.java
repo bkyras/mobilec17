@@ -47,6 +47,8 @@ public class Tab1 extends android.support.v4.app.Fragment {
         v  = inflater.inflate(R.layout.tab1, container, false);
 
         dbHelper = new DBHelper(getContext());
+        SQLiteDatabase wdb = dbHelper.getWritableDatabase();
+        //dbHelper.onUpgrade(wdb, 1, 2);
         listPostDetails();
         ListView listView = (ListView) v.findViewById(R.id.feedList);
 
@@ -100,7 +102,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
 
 
     public static PostDetail passArgs(Post post) {
-        PostDetail f = new PostDetail();
+        PostDetail pd = new PostDetail();
 
         String eventTitle = post.eventTitle;
         String foodType = post.foodType;
@@ -109,18 +111,20 @@ public class Tab1 extends android.support.v4.app.Fragment {
         String location = post.location;
         String time = post.time;
         String description = post.description;
+        int upvotes = post.upvotes;
 
         Bundle args = new Bundle();
         args.putString("eventTitle", eventTitle);
         args.putString("location", location);
-        args.putString("foodType",foodType);
-        args.putDouble("long",longitude);
-        args.putDouble("lat",latitude);
+        args.putString("foodType", foodType);
+        args.putDouble("long", longitude);
+        args.putDouble("lat", latitude);
         args.putString("time", time);
         args.putString("description",description);
+        args.putInt("upvotes", upvotes);
 
-        f.setArguments(args);
-        return f;
+        pd.setArguments(args);
+        return pd;
     }
 
     public void listPostDetails() {
@@ -136,7 +140,8 @@ public class Tab1 extends android.support.v4.app.Fragment {
                 "latitude",
                 "longitude",
                 "time",
-                "description"
+                "description",
+                "upvotes"
         };
 
         // Filter results WHERE "title" = 'My Title'
@@ -154,7 +159,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
                 null,                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
-                null                                 // The sort order
+                "ROWID DESC"                                 // The sort order
         );
 
         //List itemIds = new ArrayList<>();
@@ -173,6 +178,8 @@ public class Tab1 extends android.support.v4.app.Fragment {
                     cursor.getColumnIndexOrThrow("time"));
             String description = cursor.getString(
                     cursor.getColumnIndexOrThrow("description"));
+            int upvotes = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("upvotes"));
 
             Post p = new Post();
             p.eventTitle = title;

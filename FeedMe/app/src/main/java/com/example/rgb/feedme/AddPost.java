@@ -141,10 +141,6 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
             Toast.makeText(getActivity(), "No location", Toast.LENGTH_LONG).show();
 
         }
-
-
-
-
     }
 
     @Override
@@ -198,6 +194,7 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
         values.put("longitude", currentLongitude);
         values.put("time", time.getText().toString());
         values.put("description", description.getText().toString());
+        values.put("upvotes", 0);
 
         db.insert("FeedMePosts", null, values);
         dismiss();

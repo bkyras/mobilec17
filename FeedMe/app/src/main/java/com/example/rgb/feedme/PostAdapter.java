@@ -28,9 +28,11 @@ public class PostAdapter extends ArrayAdapter<Post> {
 
         TextView eventName = (TextView) convertView.findViewById(R.id.eventNameID);
         TextView foodType = (TextView) convertView.findViewById(R.id.foodTypeID);
+        TextView upvotes = (TextView) convertView.findViewById(R.id.upvotesID);
 
         eventName.setText(p.eventTitle + ": ");
         foodType.setText(p.foodType);
+        upvotes.setText("Votes: " + p.upvotes);
 
         return convertView;
     }

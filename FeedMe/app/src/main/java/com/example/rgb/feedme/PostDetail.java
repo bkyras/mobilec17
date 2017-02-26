@@ -37,10 +37,12 @@ public class PostDetail extends DialogFragment {
             Double lat = args.getDouble("lat");
             String time = args.getString("time");
             String desc = args.getString("description");
+            int upvotes = args.getInt("upvotes");
+            String pop = "" + upvotes;
 
             TextView eventV = (TextView) v.findViewById(R.id.eventText);
             TextView foodV = (TextView) v.findViewById(R.id.food);
-            // TextView popV = (TextView) v.findViewById(R.id.pop);
+            TextView popV = (TextView) v.findViewById(R.id.pop);
             TextView locV = (TextView) v.findViewById(R.id.loc);
             TextView timeV = (TextView) v.findViewById(R.id.time);
             TextView descV = (TextView) v.findViewById(R.id.desc);
@@ -50,6 +52,7 @@ public class PostDetail extends DialogFragment {
             locV.setText(location);
             timeV.setText(time);
             descV.setText(desc);
+            popV.setText(pop);
 
         }
 
