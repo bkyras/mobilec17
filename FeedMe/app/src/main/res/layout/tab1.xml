@@ -10,16 +10,12 @@
     android:weightSum="1"
     android:id="@+id/tab1layout">
 
-    <!--<fragment-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--class="com.example.rgb.feedme.PostDetail"-->
-        <!--android:id="@+id/output" />-->
-
     <ListView
         android:layout_width="match_parent"
         android:layout_height="370dp"
-        android:id="@+id/feedList" />
+        android:id="@+id/feedList"
+        android:dividerHeight="10.0sp"
+        android:divider="@android:color/darker_gray" />
 
     <LinearLayout
         android:orientation="horizontal"
