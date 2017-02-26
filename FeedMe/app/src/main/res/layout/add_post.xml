@@ -22,12 +22,12 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:text="Event Name Here"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/event_field"
                 android:gravity="center_horizontal"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:hint="Event name here" />
 
         </LinearLayout>
 
