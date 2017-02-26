@@ -2,7 +2,9 @@ package com.example.rgb.feedme;
 
 import android.Manifest;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.os.Bundle;

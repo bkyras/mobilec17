@@ -1,8 +1,12 @@
 package com.example.rgb.feedme;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import android.support.v4.app.DialogFragment;
@@ -26,7 +30,13 @@ import java.util.ArrayList;
 
 public class Tab1 extends android.support.v4.app.Fragment {
 
+    DBHelper dbHelper;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        System.out.println("resuming!");
+    }
     //Overriden method onCreateView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +45,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
 
         View v  = inflater.inflate(R.layout.tab1, container, false);
 
+        dbHelper = new DBHelper(getContext());
         Post p = new Post();
         p.eventTitle = "Free Pizza Party";
         p.foodType = "Pizza";
@@ -71,6 +82,49 @@ public class Tab1 extends android.support.v4.app.Fragment {
                 FragmentManager fm = getFragmentManager();
                 AddPost ad = new AddPost();
                 ad.show(fm, "Add Post Fragment");
+                fm.executePendingTransactions();
+                ad.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+                        // Define a projection that specifies which columns from the database
+                        // you will actually use after this query.
+                        String[] projection = {
+                                "eventTitle",
+                                "foodType"
+                        };
+
+                        // Filter results WHERE "title" = 'My Title'
+                                                //String selection = "*"
+                                                //String[] selectionArgs = { "My Title" };
+
+                        // How you want the results sorted in the resulting Cursor
+                                                // String sortOrder =
+                                                //FeedEntry.COLUMN_NAME_SUBTITLE + " DESC";
+
+                        Cursor cursor = db.query(
+                                "FeedMePosts",                     // The table to query
+                                projection,                               // The columns to return
+                                null,                                // The columns for the WHERE clause
+                                null,                            // The values for the WHERE clause
+                                null,                                     // don't group the rows
+                                null,                                     // don't filter by row groups
+                                null                                 // The sort order
+                        );
+
+                        //List itemIds = new ArrayList<>();
+                        while(cursor.moveToNext()) {
+                            String title = cursor.getString(
+                                    cursor.getColumnIndexOrThrow("eventTitle"));
+                            String food = cursor.getString(
+                                    cursor.getColumnIndexOrThrow("foodType"));
+                            System.out.println(title);
+                            System.out.println(food);
+                        }
+                        cursor.close();
+                    }
+                });
             }});
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
