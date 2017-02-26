@@ -38,7 +38,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
         super.onResume();
         System.out.println("resuming!");
     }
-    //Overriden method onCreateView
+    //Overridden method onCreateView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         System.out.println("In tab1 oncreate view");
@@ -51,6 +51,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
         ListView listView = (ListView) v.findViewById(R.id.feedList);
 
         Button addButton = (Button) v.findViewById(R.id.addPost_btn);
+        Button delButton = (Button) v.findViewById(R.id.wipeDb_btn);
 
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +71,15 @@ public class Tab1 extends android.support.v4.app.Fragment {
                 });
 
             }});
+
+        delButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                db.execSQL("delete from FeedMePosts");
+                listPostDetails();
+            }
+        });
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
