@@ -79,6 +79,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
 
             @Override
             public void onClick(View v) {
+
                 FragmentManager fm = getFragmentManager();
                 AddPost ad = new AddPost();
                 ad.show(fm, "Add Post Fragment");
@@ -86,13 +87,19 @@ public class Tab1 extends android.support.v4.app.Fragment {
                 ad.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
+                        ArrayList<Post> newPosts = new ArrayList<Post>();
                         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
                         // Define a projection that specifies which columns from the database
                         // you will actually use after this query.
                         String[] projection = {
                                 "eventTitle",
-                                "foodType"
+                                "foodType",
+                                "location",
+                                "latitude",
+                                "longitude",
+                                "time",
+                                "description"
                         };
 
                         // Filter results WHERE "title" = 'My Title'
@@ -119,13 +126,41 @@ public class Tab1 extends android.support.v4.app.Fragment {
                                     cursor.getColumnIndexOrThrow("eventTitle"));
                             String food = cursor.getString(
                                     cursor.getColumnIndexOrThrow("foodType"));
-                            System.out.println(title);
-                            System.out.println(food);
+                            String loc = cursor.getString(
+                                    cursor.getColumnIndexOrThrow("location"));
+                            Double lat = cursor.getDouble(
+                                    cursor.getColumnIndexOrThrow("latitude"));
+                            Double lon = cursor.getDouble(
+                                    cursor.getColumnIndexOrThrow("longitude"));
+                            String time = cursor.getString(
+                                    cursor.getColumnIndexOrThrow("time"));
+                            String description = cursor.getString(
+                                    cursor.getColumnIndexOrThrow("description"));
+
+
+                            Post p = new Post();
+                            p.eventTitle = title;
+                            p.foodType = food;
+                            p.location = loc;
+                            p.latitude = lat;
+                            p.longitude = lon;
+                            p.time = time;
+                            p.description = description;
+
+                            newPosts.add(p);
+
+//                            System.out.println(title);
+//                            System.out.println(food);
                         }
                         cursor.close();
+                        PostAdapter adapter = new PostAdapter(getContext(), newPosts);
+                        ListView listView = (ListView) getView().findViewById(R.id.feedList);
+                        listView.setAdapter(adapter);
                     }
                 });
+
             }});
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
