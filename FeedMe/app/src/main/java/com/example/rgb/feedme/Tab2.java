@@ -3,15 +3,19 @@ package com.example.rgb.feedme;
 import android.Manifest;
 import android.app.Fragment;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -30,13 +34,16 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
+
+import static com.example.rgb.feedme.Tab1.newPosts;
 
 
 /**
  * Created by Rayan on 2/18/2017.
  */
 
-public class Tab2 extends android.support.v4.app.Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, LocationListener {
+public class Tab2 extends android.support.v4.app.Fragment implements  GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, LocationListener {
 
 
 
@@ -46,14 +53,15 @@ public class Tab2 extends android.support.v4.app.Fragment implements GoogleApiCl
     public double currentLongitude;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean mPermissionDenied = false;
-    private GoogleMap mMap;
+    public static GoogleMap mMap;
     private ArrayList<Post> posts;
+    DBHelper dbHelper;
 
     private LatLngBounds wpiBound = new LatLngBounds(
             new LatLng(42.272934, -71.813831), new LatLng(42.275255, -71.803986));
     //near the fountain 42.274495, -71.807911
     private static final CameraPosition wpi_CAMERA = new CameraPosition.Builder()
-            .target(new LatLng(42.274495, -71.813831)).zoom(17.0f).bearing(0).tilt(0).build();
+            .target(new LatLng(42.274495, -71.807911)).zoom(17.0f).bearing(0).tilt(0).build();
 
 
 
@@ -66,6 +74,7 @@ public class Tab2 extends android.support.v4.app.Fragment implements GoogleApiCl
 
         View v = inflater.inflate(R.layout.tab2, container, false);
 
+        dbHelper = new DBHelper(getContext());
 
         // Create an instance of GoogleAPIClient.
         if (mApiClient == null) {
@@ -178,7 +187,9 @@ public class Tab2 extends android.support.v4.app.Fragment implements GoogleApiCl
         mMap.setLatLngBoundsForCameraTarget(wpiBound);
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(wpi_CAMERA));
         //add pins from the given list of posts
-        dropPins(mMap, posts);
+        listPostDetails();
+        dropPins(mMap,newPosts);
+
 
 
     }
@@ -203,7 +214,6 @@ public class Tab2 extends android.support.v4.app.Fragment implements GoogleApiCl
     @Override
     public boolean onMyLocationButtonClick() {
         mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
-
         //Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
@@ -254,14 +264,89 @@ public class Tab2 extends android.support.v4.app.Fragment implements GoogleApiCl
     }
 
 
-    public void dropPins(GoogleMap mMap, ArrayList<Post> posts){
+    public static void dropPins(GoogleMap mMap, ArrayList<Post> posts){
         for(Post p: posts){
+            int min = -2;
+            int max = 2;
+            int rand1 = ThreadLocalRandom.current().nextInt(min,max+1);
+            int rand2 = ThreadLocalRandom.current().nextInt(min,max+1);
+
+            double setLat = p.latitude + (double) rand1/50000;
+            double setLon = p.longitude + (double) rand2/50000;
             mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(p.latitude, p.longitude))
+                    .position(new LatLng(setLat,setLon))
                     .title(p.eventTitle));
 
         }
 
+    }
+
+
+    public  void listPostDetails() {
+        newPosts = new ArrayList<Post>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                "eventTitle",
+                "foodType",
+                "location",
+                "latitude",
+                "longitude",
+                "time",
+                "description",
+                "upvotes"
+        };
+
+        // Filter results WHERE "title" = 'My Title'
+        //String selection = "*"
+        //String[] selectionArgs = { "My Title" };
+
+        // How you want the results sorted in the resulting Cursor
+        // String sortOrder =
+        //FeedEntry.COLUMN_NAME_SUBTITLE + " DESC";
+
+        Cursor cursor = db.query(
+                "FeedMePosts",                     // The table to query
+                projection,                               // The columns to return
+                null,                                // The columns for the WHERE clause
+                null,                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                "ROWID DESC"                                 // The sort order
+        );
+
+        //List itemIds = new ArrayList<>();
+        while(cursor.moveToNext()) {
+            String title = cursor.getString(
+                    cursor.getColumnIndexOrThrow("eventTitle"));
+            String food = cursor.getString(
+                    cursor.getColumnIndexOrThrow("foodType"));
+            String loc = cursor.getString(
+                    cursor.getColumnIndexOrThrow("location"));
+            Double lat = cursor.getDouble(
+                    cursor.getColumnIndexOrThrow("latitude"));
+            Double lon = cursor.getDouble(
+                    cursor.getColumnIndexOrThrow("longitude"));
+            String time = cursor.getString(
+                    cursor.getColumnIndexOrThrow("time"));
+            String description = cursor.getString(
+                    cursor.getColumnIndexOrThrow("description"));
+            int upvotes = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("upvotes"));
+
+            Post p = new Post();
+            p.eventTitle = title;
+            p.foodType = food;
+            p.location = loc;
+            p.latitude = lat;
+            p.longitude = lon;
+            p.time = time;
+            p.description = description;
+            newPosts.add(p);
+        }
+        cursor.close();
     }
 
 }

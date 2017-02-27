@@ -20,16 +20,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import static com.example.rgb.feedme.Tab2.dropPins;
+import static com.example.rgb.feedme.Tab2.mMap;
 
 /**
  * Created by Rayan on 2/18/2017.
  */
 
 public class Tab1 extends android.support.v4.app.Fragment {
-
+    public static ArrayList<Post> newPosts;
     DBHelper dbHelper;
     View v;
 
@@ -69,6 +73,10 @@ public class Tab1 extends android.support.v4.app.Fragment {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
                         listPostDetails();
+                        if(mMap != null){
+                            mMap.clear();
+                            dropPins(mMap,newPosts);
+                        }
                     }
                 });
 
@@ -95,6 +103,53 @@ public class Tab1 extends android.support.v4.app.Fragment {
 
             }
         });
+
+
+        Spinner spinner = (Spinner) v.findViewById(R.id.sort_spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.sort_options, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+
+
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String input = parent.getItemAtPosition(position).toString();
+                String sort_option;
+                switch (input) {
+
+                    case "Event Title":
+                        sort_option = "eventTitle";
+                        break;
+                    case "Food":
+                        sort_option = "foodType";
+                        break;
+                    case "Location":
+                        sort_option = "location";
+                        break;
+                    case "Votes":
+                        sort_option = "upvotes";
+                        break;
+                    case "Time":
+                        sort_option = "time";
+                        break;
+                    default:
+                        sort_option = "eventTitle";
+                }
+                listOrdered(sort_option);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }});
         //Returning the layout file after inflating
         //Change R.layout.tab1 in you classes
         return v;
@@ -127,8 +182,8 @@ public class Tab1 extends android.support.v4.app.Fragment {
         return pd;
     }
 
-    public void listPostDetails() {
-        ArrayList<Post> newPosts = new ArrayList<Post>();
+    public  void listPostDetails() {
+        newPosts = new ArrayList<Post>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         // Define a projection that specifies which columns from the database
@@ -160,6 +215,76 @@ public class Tab1 extends android.support.v4.app.Fragment {
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
                 "ROWID DESC"                                 // The sort order
+        );
+
+        //List itemIds = new ArrayList<>();
+        while(cursor.moveToNext()) {
+            String title = cursor.getString(
+                    cursor.getColumnIndexOrThrow("eventTitle"));
+            String food = cursor.getString(
+                    cursor.getColumnIndexOrThrow("foodType"));
+            String loc = cursor.getString(
+                    cursor.getColumnIndexOrThrow("location"));
+            Double lat = cursor.getDouble(
+                    cursor.getColumnIndexOrThrow("latitude"));
+            Double lon = cursor.getDouble(
+                    cursor.getColumnIndexOrThrow("longitude"));
+            String time = cursor.getString(
+                    cursor.getColumnIndexOrThrow("time"));
+            String description = cursor.getString(
+                    cursor.getColumnIndexOrThrow("description"));
+            int upvotes = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("upvotes"));
+
+            Post p = new Post();
+            p.eventTitle = title;
+            p.foodType = food;
+            p.location = loc;
+            p.latitude = lat;
+            p.longitude = lon;
+            p.time = time;
+            p.description = description;
+            newPosts.add(p);
+        }
+        cursor.close();
+        PostAdapter adapter = new PostAdapter(getContext(), newPosts);
+        ListView listView = (ListView) v.findViewById(R.id.feedList);
+        listView.setAdapter(adapter);
+    }
+
+    public  void listOrdered(String sorter) {
+        newPosts = new ArrayList<Post>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                "eventTitle",
+                "foodType",
+                "location",
+                "latitude",
+                "longitude",
+                "time",
+                "description",
+                "upvotes"
+        };
+
+        // Filter results WHERE "title" = 'My Title'
+        //String selection = "*"
+        //String[] selectionArgs = { "My Title" };
+
+        // How you want the results sorted in the resulting Cursor
+         String sortOrder = sorter + " DESC";
+        //FeedEntry.COLUMN_NAME_SUBTITLE + " DESC";
+
+        Cursor cursor = db.query(
+                "FeedMePosts",                     // The table to query
+                projection,                               // The columns to return
+                null,                                // The columns for the WHERE clause
+                null,                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                sortOrder                                 // The sort order
         );
 
         //List itemIds = new ArrayList<>();
