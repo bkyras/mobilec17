@@ -2,7 +2,9 @@ package com.example.rgb.feedme;
 
 import android.Manifest;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.os.Bundle;
@@ -139,10 +141,6 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
             Toast.makeText(getActivity(), "No location", Toast.LENGTH_LONG).show();
 
         }
-
-
-
-
     }
 
     @Override
@@ -196,6 +194,7 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
         values.put("longitude", currentLongitude);
         values.put("time", time.getText().toString());
         values.put("description", description.getText().toString());
+        values.put("upvotes", 0);
 
         db.insert("FeedMePosts", null, values);
         dismiss();

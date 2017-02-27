@@ -6,8 +6,6 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
 
         android:layout_height="match_parent"
         android:layout_width="match_parent"
@@ -25,16 +23,18 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/eventText"
                 android:gravity="center_horizontal"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:textColor="@android:color/black" />
 
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="25sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
 
             <TextView
                 android:text="Food: "
@@ -42,7 +42,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/foodText"
                 android:layout_weight="1"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@android:color/black" />
 
             <TextView
                 android:text="Pizza"
@@ -57,9 +58,10 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="25sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
 
             <TextView
                 android:text="Votes: "
@@ -67,7 +69,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/popText"
                 android:layout_weight="1"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@android:color/black" />
 
             <TextView
                 android:text="100"
@@ -82,9 +85,10 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="25sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
 
             <TextView
                 android:text="Location: "
@@ -92,7 +96,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/locText"
                 android:layout_weight="1"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@android:color/black" />
 
             <TextView
                 android:text="SH 123"
@@ -107,9 +112,10 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="25sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
 
             <TextView
                 android:text="Time: "
@@ -117,7 +123,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/timeText"
                 android:layout_weight="1"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@android:color/black" />
 
             <TextView
                 android:text="3:00 PM"
@@ -132,17 +139,19 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="25sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.47">
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
 
             <TextView
                 android:text="Description: "
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/descText"
-                android:textSize="18sp" />
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textColor="@android:color/black" />
 
             <TextView
                 android:text="Watch out for the ex President"

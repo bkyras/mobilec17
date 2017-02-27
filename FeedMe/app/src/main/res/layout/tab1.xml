@@ -10,21 +10,24 @@
     android:weightSum="1"
     android:id="@+id/tab1layout">
 
-    <!--<fragment-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--class="com.example.rgb.feedme.PostDetail"-->
-        <!--android:id="@+id/output" />-->
-
     <ListView
         android:layout_width="match_parent"
         android:layout_height="370dp"
-        android:id="@+id/feedList" />
+        android:id="@+id/feedList"
+        android:dividerHeight="10.0sp"
+        android:divider="@android:color/transparent" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <Button
+            android:text="Wipe"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:id="@+id/wipeDb_btn"
+            android:layout_weight="1" />
 
         <Button
             android:text="Post"

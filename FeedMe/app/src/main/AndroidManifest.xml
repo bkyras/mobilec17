@@ -17,8 +17,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PostDetail" />
-
 
         <fragment android:name="com.example.rgb.feedme.PostDetail">
 
