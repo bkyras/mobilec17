@@ -19,9 +19,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 
@@ -105,6 +107,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
         });
 
 
+        //sort drop down
         Spinner spinner = (Spinner) v.findViewById(R.id.sort_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
@@ -116,18 +119,16 @@ public class Tab1 extends android.support.v4.app.Fragment {
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 
-
-
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String input = parent.getItemAtPosition(position).toString();
-                String sort_option;
+                String sort_option = "eventTitle";
                 switch (input) {
 
                     case "Event Title":
                         sort_option = "eventTitle";
                         break;
-                    case "Food":
+                    case "Food Type":
                         sort_option = "foodType";
                         break;
                     case "Location":
@@ -139,8 +140,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
                     case "Time":
                         sort_option = "time";
                         break;
-                    default:
-                        sort_option = "eventTitle";
+
                 }
                 listOrdered(sort_option);
 
@@ -150,6 +150,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }});
+
         //Returning the layout file after inflating
         //Change R.layout.tab1 in you classes
         return v;
@@ -274,7 +275,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
         //String[] selectionArgs = { "My Title" };
 
         // How you want the results sorted in the resulting Cursor
-         String sortOrder = sorter + " DESC";
+        String sortOrder = sorter + " ASC";
         //FeedEntry.COLUMN_NAME_SUBTITLE + " DESC";
 
         Cursor cursor = db.query(
@@ -288,7 +289,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
         );
 
         //List itemIds = new ArrayList<>();
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
             String title = cursor.getString(
                     cursor.getColumnIndexOrThrow("eventTitle"));
             String food = cursor.getString(
@@ -320,6 +321,13 @@ public class Tab1 extends android.support.v4.app.Fragment {
         PostAdapter adapter = new PostAdapter(getContext(), newPosts);
         ListView listView = (ListView) v.findViewById(R.id.feedList);
         listView.setAdapter(adapter);
+    }
+
+    public void addUpvote() {
+        ArrayList<Post> newPosts = new ArrayList<Post>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String[] projection = {"upvotes"};
     }
 
 
