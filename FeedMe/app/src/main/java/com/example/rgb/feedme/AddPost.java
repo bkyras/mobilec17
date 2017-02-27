@@ -2,6 +2,7 @@ package com.example.rgb.feedme;
 
 import android.Manifest;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -10,6 +11,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -80,7 +82,28 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
 
             @Override
             public void onClick(View v) {
-                addToDatabase();
+                TextView eventTitle = (TextView) getView().findViewById(R.id.event_field);
+                TextView foodType = (TextView) getView().findViewById(R.id.food_field);
+                TextView location = (TextView) getView().findViewById(R.id.location_field);
+                TextView time = (TextView) getView().findViewById(R.id.time_field);
+                TextView description = (TextView) getView().findViewById(R.id.descripText);
+
+                // Error handling for text fields
+                if(eventTitle.getText().toString().equals("")){
+                    blankHandle("Event Title");
+                } else if(foodType.getText().toString().equals("")) {
+                    blankHandle("Food");
+                } else if(location.getText().toString().equals("")) {
+                    blankHandle("location");
+                } else if(time.getText().toString().equals("")) {
+                    blankHandle("Time");
+                } else if(description.getText().toString().equals("")) {
+                    blankHandle("Description");
+                } else {
+                    addToDatabase();
+                }
+                
+                // addToDatabase();
             }});
 
         return view;
@@ -198,6 +221,16 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
 
         db.insert("FeedMePosts", null, values);
         dismiss();
+    }
+
+
+    public void blankHandle(String field){
+        Context context = getActivity().getApplicationContext();
+        CharSequence text = "Please fill in the " + field + " Field";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
 }
