@@ -102,7 +102,7 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
                 } else {
                     addToDatabase();
                 }
-                
+
                 // addToDatabase();
             }});
 
@@ -158,7 +158,7 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
         if (mLastLocation != null) {
             currentLatitude =  mLastLocation.getLatitude();
             currentLongitude =  mLastLocation.getLongitude();
-            Toast.makeText(getActivity(),  "Latitude: " +currentLatitude +   ", Longitude: "+ currentLongitude+ "", Toast.LENGTH_LONG).show();
+           // Toast.makeText(getActivity(),  "Latitude: " +currentLatitude +   ", Longitude: "+ currentLongitude+ "", Toast.LENGTH_LONG).show();
 
         } else {
             Toast.makeText(getActivity(), "No location", Toast.LENGTH_LONG).show();
