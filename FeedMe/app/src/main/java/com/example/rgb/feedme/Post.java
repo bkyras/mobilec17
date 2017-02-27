@@ -5,6 +5,7 @@ package com.example.rgb.feedme;
  */
 
 public class Post {
+    int postID;
     String eventTitle;
     String foodType;
     String location;

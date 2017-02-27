@@ -15,7 +15,8 @@
         android:layout_height="370dp"
         android:id="@+id/feedList"
         android:dividerHeight="10.0sp"
-        android:divider="@android:color/transparent" />
+        android:divider="@android:color/transparent"
+        android:focusable="true" />
 
     <LinearLayout
         android:orientation="horizontal"

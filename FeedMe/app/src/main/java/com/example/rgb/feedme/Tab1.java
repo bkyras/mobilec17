@@ -19,8 +19,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 
@@ -95,6 +97,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
 
             }
         });
+
         //Returning the layout file after inflating
         //Change R.layout.tab1 in you classes
         return v;
@@ -195,6 +198,13 @@ public class Tab1 extends android.support.v4.app.Fragment {
         PostAdapter adapter = new PostAdapter(getContext(), newPosts);
         ListView listView = (ListView) v.findViewById(R.id.feedList);
         listView.setAdapter(adapter);
+    }
+
+    public void addUpvote() {
+        ArrayList<Post> newPosts = new ArrayList<Post>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String[] projection = {"upvotes"};
     }
 
 
