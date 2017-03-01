@@ -148,19 +148,12 @@
             android:layout_marginRight="25dp">
 
             <TextView
-                android:text="Description: "
-                android:layout_width="111dp"
-                android:layout_height="match_parent"
-                android:id="@+id/descText"
-                android:textSize="18sp"
-                android:textColor="@android:color/black" />
-
-            <TextView
                 android:text="Watch out for the ex President"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/desc"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="normal|bold|italic" />
 
         </LinearLayout>
 

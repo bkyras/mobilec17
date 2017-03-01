@@ -3,7 +3,8 @@
     android:id="@+id/add_post_fragment"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/back">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -28,7 +29,8 @@
                 android:layout_marginTop="5dp"
                 android:textSize="30sp"
 
-                android:hint="Event name here" />
+                android:hint="Event name here"
+                android:maxLength="40" />
 
         </LinearLayout>
 
@@ -56,7 +58,8 @@
                 android:hint="e.g. pizza"
                 android:lines="1"
                 android:layout_height="match_parent"
-                android:layout_weight="0.65" />
+                android:layout_weight="0.65"
+                android:maxLength="30" />
 
         </LinearLayout>
 
@@ -85,7 +88,9 @@
                 android:hint="e.g. SH 123"
                 android:lines="1"
                 android:layout_width="wrap_content"
-                android:layout_weight="0.79" />
+                android:layout_weight="0.79"
+                android:maxLength="20"
+                android:maxHeight="30dp" />
 
         </LinearLayout>
 
