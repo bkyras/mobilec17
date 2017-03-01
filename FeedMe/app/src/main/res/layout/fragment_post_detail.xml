@@ -1,13 +1,19 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+
+    >
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_marginTop="15dp"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:layout_marginBottom= "50sp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:weightSum="1">
 
         <LinearLayout
@@ -18,7 +24,7 @@
             <TextView
                 android:text="Radio GBM"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/eventText"
                 android:gravity="center_horizontal"
                 android:textSize="30sp"
@@ -29,17 +35,16 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp">
 
             <TextView
                 android:text="Food: "
-                android:layout_width="match_parent"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/foodText"
-                android:layout_weight="1"
                 android:textSize="18sp"
                 android:textColor="@android:color/black" />
 
@@ -56,24 +61,25 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp">
 
             <TextView
                 android:text="Votes: "
-                android:layout_width="match_parent"
+                android:layout_width="74dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/popText"
-                android:layout_weight="1"
                 android:textSize="18sp"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                android:layout_weight="0.03" />
 
             <TextView
                 android:text="100"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:id="@+id/pop"
                 android:layout_weight="1"
                 android:textSize="18sp" />
@@ -83,17 +89,16 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp">
 
             <TextView
                 android:text="Location: "
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/locText"
-                android:layout_weight="1"
                 android:textSize="18sp"
                 android:textColor="@android:color/black" />
 
@@ -107,47 +112,46 @@
 
         </LinearLayout>
 
+        <!--<LinearLayout-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_marginTop="15dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_marginRight="5dp">-->
+
+            <!--<TextView-->
+                <!--android:text="Time: "-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/timeText"-->
+                <!--android:layout_weight="1"-->
+                <!--android:textSize="18sp"-->
+                <!--android:textColor="@android:color/black" />-->
+
+            <!--<TextView-->
+                <!--android:text="3:00 PM"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/time"-->
+                <!--android:layout_weight="1"-->
+                <!--android:textSize="18sp" />-->
+
+        <!--</LinearLayout>-->
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
-
-            <TextView
-                android:text="Time: "
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/timeText"
-                android:layout_weight="1"
-                android:textSize="18sp"
-                android:textColor="@android:color/black" />
-
-            <TextView
-                android:text="3:00 PM"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/time"
-                android:layout_weight="1"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp">
 
             <TextView
                 android:text="Description: "
-                android:layout_width="match_parent"
+                android:layout_width="111dp"
                 android:layout_height="match_parent"
                 android:id="@+id/descText"
-                android:layout_weight="1"
                 android:textSize="18sp"
                 android:textColor="@android:color/black" />
 

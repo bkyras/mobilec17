@@ -85,7 +85,7 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
                 TextView eventTitle = (TextView) getView().findViewById(R.id.event_field);
                 TextView foodType = (TextView) getView().findViewById(R.id.food_field);
                 TextView location = (TextView) getView().findViewById(R.id.location_field);
-                TextView time = (TextView) getView().findViewById(R.id.time_field);
+                //TextView time = (TextView) getView().findViewById(R.id.time_field);
                 TextView description = (TextView) getView().findViewById(R.id.descripText);
 
                 // Error handling for text fields
@@ -95,8 +95,8 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
                     blankHandle("Food");
                 } else if(location.getText().toString().equals("")) {
                     blankHandle("location");
-                } else if(time.getText().toString().equals("")) {
-                    blankHandle("Time");
+                //} else if(time.getText().toString().equals("")) {
+                //     blankHandle("Time");
                 } else if(description.getText().toString().equals("")) {
                     blankHandle("Description");
                 } else {
@@ -207,7 +207,7 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
         TextView eventTitle = (TextView) getView().findViewById(R.id.event_field);
         TextView foodType = (TextView) getView().findViewById(R.id.food_field);
         TextView location = (TextView) getView().findViewById(R.id.location_field);
-        TextView time = (TextView) getView().findViewById(R.id.time_field);
+        // TextView time = (TextView) getView().findViewById(R.id.time_field);
         TextView description = (TextView) getView().findViewById(R.id.descripText);
 
         values.put("eventTitle", eventTitle.getText().toString());
@@ -215,7 +215,8 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
         values.put("location", location.getText().toString());
         values.put("latitude", currentLatitude);
         values.put("longitude", currentLongitude);
-        values.put("time", time.getText().toString());
+        //values.put("time", time.getText().toString());
+        values.put("time", 3600);
         values.put("description", description.getText().toString());
         values.put("upvotes", 0);
 
