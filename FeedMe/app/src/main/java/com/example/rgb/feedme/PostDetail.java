@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TextView;
 
 /**
@@ -23,6 +24,12 @@ public class PostDetail extends DialogFragment {
     public PostDetail(){
 
     }
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStyle(STYLE_NO_TITLE, 0);
+    }
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -44,18 +51,17 @@ public class PostDetail extends DialogFragment {
             TextView foodV = (TextView) v.findViewById(R.id.food);
             TextView popV = (TextView) v.findViewById(R.id.pop);
             TextView locV = (TextView) v.findViewById(R.id.loc);
-            TextView timeV = (TextView) v.findViewById(R.id.time);
+            //TextView timeV = (TextView) v.findViewById(R.id.time);
             TextView descV = (TextView) v.findViewById(R.id.desc);
 
             eventV.setText(event);
             foodV.setText(food);
             locV.setText(location);
-            timeV.setText(time);
+            //timeV.setText(time);
             descV.setText(desc);
             popV.setText(pop);
 
         }
-
 
         System.out.println("Creating a view");
 

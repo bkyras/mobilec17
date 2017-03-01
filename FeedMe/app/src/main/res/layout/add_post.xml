@@ -11,14 +11,12 @@
         android:orientation="vertical"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content">
 
             <EditText
@@ -26,7 +24,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/event_field"
                 android:gravity="center_horizontal"
+                android:layout_marginTop="5dp"
                 android:textSize="30sp"
+
                 android:hint="Event name here" />
 
         </LinearLayout>
@@ -35,24 +35,26 @@
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:weightSum="1">
 
             <TextView
-                android:text="Food"
+                android:text="Food: "
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/food_title"
                 android:textSize="18sp"
-                android:gravity="center_vertical" />
+                android:gravity="left|center_vertical"
+                android:layout_weight="0.23" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:id="@+id/food_field"
-                android:layout_weight="1"
                 android:textSize="18sp"
                 android:hint="e.g. pizza"
-                android:lines="1" />
+                android:lines="1"
+                android:layout_height="match_parent"
+                android:layout_weight="0.65" />
 
         </LinearLayout>
 
@@ -60,66 +62,69 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
 
             <TextView
-                android:text="Location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:text="Location: "
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/location_title"
-                android:layout_weight="1"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:gravity="left|center_vertical"
+                android:layout_weight="0.07" />
 
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/location_field"
-                android:layout_weight="1"
                 android:textSize="18sp"
                 android:hint="e.g. SH 123"
-                android:lines="1" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:text="Time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/time_title"
-                android:layout_weight="1"
-                android:textSize="18sp" />
-
-
-            <EditText
+                android:lines="1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="time"
-                android:ems="10"
-                android:id="@+id/time_field"
-                android:layout_weight="1" />
+                android:layout_weight="0.79" />
 
         </LinearLayout>
+
+        <!--<LinearLayout-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_marginTop="15dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--<TextView-->
+                <!--android:text="Time"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/time_title"-->
+                <!--android:layout_weight="1"-->
+                <!--android:textSize="18sp" />-->
+
+
+            <!--<EditText-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:inputType="time"-->
+                <!--android:ems="10"-->
+                <!--android:id="@+id/time_field"-->
+                <!--android:layout_weight="1" />-->
+
+        <!--</LinearLayout>-->
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight=".3">
 
             <TextView
-                android:text="Description"
+                android:text="Description: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/description_title"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:gravity="right|center_vertical" />
 
             <EditText
                 android:layout_width="wrap_content"
