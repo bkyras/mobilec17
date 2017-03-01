@@ -12,11 +12,12 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal">
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <EditText
@@ -34,9 +35,10 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:layout_gravity="left">
 
             <TextView
                 android:text="Food: "
@@ -62,9 +64,10 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:layout_gravity="left">
 
             <TextView
                 android:text="Location: "
@@ -114,9 +117,10 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight=".3">
+            android:layout_weight=".3"
+            android:layout_gravity="left">
 
             <TextView
                 android:text="Description: "
@@ -133,7 +137,7 @@
                 android:ems="10"
                 android:id="@+id/descripText"
                 android:layout_weight="1"
-                android:hint="Type your description here" />
+                android:hint="Enter description here" />
 
         </LinearLayout>
 
