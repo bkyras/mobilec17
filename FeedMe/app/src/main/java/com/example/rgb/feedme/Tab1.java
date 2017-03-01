@@ -54,7 +54,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
 
         dbHelper = new DBHelper(getContext());
         SQLiteDatabase wdb = dbHelper.getWritableDatabase();
-        //dbHelper.onUpgrade(wdb, 1, 2);
+//        dbHelper.onUpgrade(wdb, 1, 2);
         listPostDetails();
         ListView listView = (ListView) v.findViewById(R.id.feedList);
 
@@ -137,9 +137,6 @@ public class Tab1 extends android.support.v4.app.Fragment {
                     case "Votes":
                         sort_option = "upvotes";
                         break;
-                    case "Time":
-                        sort_option = "time";
-                        break;
 
                 }
                 listOrdered(sort_option);
@@ -197,7 +194,8 @@ public class Tab1 extends android.support.v4.app.Fragment {
                 "longitude",
                 "time",
                 "description",
-                "upvotes"
+                "upvotes",
+                "rowid"
         };
 
         // Filter results WHERE "title" = 'My Title'
@@ -236,6 +234,8 @@ public class Tab1 extends android.support.v4.app.Fragment {
                     cursor.getColumnIndexOrThrow("description"));
             int upvotes = cursor.getInt(
                     cursor.getColumnIndexOrThrow("upvotes"));
+            int id = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("rowid"));
 
             Post p = new Post();
             p.eventTitle = title;
@@ -245,6 +245,8 @@ public class Tab1 extends android.support.v4.app.Fragment {
             p.longitude = lon;
             p.time = time;
             p.description = description;
+            p.upvotes = upvotes;
+            p.postID = id;
             newPosts.add(p);
         }
         cursor.close();
@@ -267,7 +269,8 @@ public class Tab1 extends android.support.v4.app.Fragment {
                 "longitude",
                 "time",
                 "description",
-                "upvotes"
+                "upvotes",
+                "rowid"
         };
 
         // Filter results WHERE "title" = 'My Title'
@@ -306,6 +309,8 @@ public class Tab1 extends android.support.v4.app.Fragment {
                     cursor.getColumnIndexOrThrow("description"));
             int upvotes = cursor.getInt(
                     cursor.getColumnIndexOrThrow("upvotes"));
+            int id = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("rowid"));
 
             Post p = new Post();
             p.eventTitle = title;
@@ -315,6 +320,9 @@ public class Tab1 extends android.support.v4.app.Fragment {
             p.longitude = lon;
             p.time = time;
             p.description = description;
+            p.upvotes = upvotes;
+
+            p.postID = id;
             newPosts.add(p);
         }
         cursor.close();

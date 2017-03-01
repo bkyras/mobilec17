@@ -296,7 +296,8 @@ public class Tab2 extends android.support.v4.app.Fragment implements  GoogleApiC
                 "longitude",
                 "time",
                 "description",
-                "upvotes"
+                "upvotes",
+                "rowid"
         };
 
         // Filter results WHERE "title" = 'My Title'
@@ -335,6 +336,9 @@ public class Tab2 extends android.support.v4.app.Fragment implements  GoogleApiC
                     cursor.getColumnIndexOrThrow("description"));
             int upvotes = cursor.getInt(
                     cursor.getColumnIndexOrThrow("upvotes"));
+            int id = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("rowid"));
+
 
             Post p = new Post();
             p.eventTitle = title;
@@ -344,6 +348,9 @@ public class Tab2 extends android.support.v4.app.Fragment implements  GoogleApiC
             p.longitude = lon;
             p.time = time;
             p.description = description;
+            p.postID = id;
+            p.upvotes = upvotes;
+
             newPosts.add(p);
         }
         cursor.close();
