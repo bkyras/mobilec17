@@ -224,7 +224,6 @@ public class AddPost extends DialogFragment implements GoogleApiClient.Connectio
         dismiss();
     }
 
-
     public void blankHandle(String field){
         Context context = getActivity().getApplicationContext();
         CharSequence text = "Please fill in the " + field + " Field";
