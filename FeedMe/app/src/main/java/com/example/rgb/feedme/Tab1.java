@@ -3,6 +3,7 @@ package com.example.rgb.feedme;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -53,7 +54,13 @@ public class Tab1 extends android.support.v4.app.Fragment {
         v  = inflater.inflate(R.layout.tab1, container, false);
 
         dbHelper = new DBHelper(getContext());
-        SQLiteDatabase wdb = dbHelper.getWritableDatabase();
+        //String title, String food, String location, String desc, int votes, double lat, double longi
+        //42.274495, -71.807911
+        addDummyPost("Nutella with ISC", "Nutella", "Fountain", "Come enjoy nutella on foods with ISC at the fountain.", 3, 42.274495, -71.807911);
+        addDummyPost("UPE's Burning the Midnight Oil", "Pancakes, snacks", "Fuller Commons", "Study and eat free food!", 2, 42.274495, -71.807911);
+        addDummyPost("Pizza for People", "Pizza!!!", "Wedge", "EAT PIZZA WITH US, REAL PEOPLE, TODAY, RIGHT NOW", 4, 42.274495, -71.807911);
+        addDummyPost("Crab Hunters", "Pizza and crabs", "Institute Park", "Free crabs", -2, 42.274495, -71.807911);
+//        SQLiteDatabase wdb = dbHelper.getWritableDatabase();
 //        dbHelper.onUpgrade(wdb, 1, 2);
         listPostDetails();
         ListView listView = (ListView) v.findViewById(R.id.feedList);
@@ -153,6 +160,21 @@ public class Tab1 extends android.support.v4.app.Fragment {
         return v;
     }
 
+    public void addDummyPost(String title, String food, String location, String desc, int votes, double lat, double longi) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("eventTitle", title);
+        values.put("foodType", food);
+        values.put("location", location);
+        values.put("latitude", lat);
+        values.put("longitude", longi);
+        //values.put("time", time.getText().toString());
+        values.put("time", 3600);
+        values.put("description", desc);
+        values.put("upvotes", votes);
+
+        db.insert("FeedMePosts", null, values);
+    }
 
     public static PostDetail passArgs(Post post) {
         PostDetail pd = new PostDetail();
