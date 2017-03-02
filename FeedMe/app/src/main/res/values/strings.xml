@@ -10,6 +10,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string-array name="sort_options">
+        <item>Recent</item>
         <item>Event Title</item>
         <item>Food Type</item>
         <item>Location</item>

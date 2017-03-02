@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -39,7 +40,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
     public static ArrayList<Post> newPosts;
     DBHelper dbHelper;
     View v;
-
+    String sort_option ;
     @Override
     public void onResume() {
         super.onResume();
@@ -57,15 +58,25 @@ public class Tab1 extends android.support.v4.app.Fragment {
         //String title, String food, String location, String desc, int votes, double lat, double longi
         //42.274495, -71.807911
         addDummyPost("Nutella with ISC", "Nutella", "Fountain", "Come enjoy nutella on foods with ISC at the fountain.", 3, 42.274495, -71.807911);
-        addDummyPost("UPE's Burning the Midnight Oil", "Pancakes, snacks", "Fuller Commons", "Study and eat free food!", 2, 42.274495, -71.807911);
-        addDummyPost("Pizza for People", "Pizza!!!", "Wedge", "EAT PIZZA WITH US, REAL PEOPLE, TODAY, RIGHT NOW", 4, 42.274495, -71.807911);
-        addDummyPost("Crab Hunters", "Pizza and crabs", "Institute Park", "Free crabs", -2, 42.274495, -71.807911);
+        //42.274952, -71.806562
+        addDummyPost("UPE's Burning the Midnight Oil", "Pancakes, snacks", "Fuller Commons", "Study and eat free food!", 2, 42.274952,  -71.806562);
+        //42.273501, -71.810576
+        addDummyPost("Pizza for People", "Pizza!!!", "Wedge", "EAT PIZZA WITH US, REAL PEOPLE, TODAY, RIGHT NOW", 4, 42.273501, -71.810576);
+        //42.275697, -71.805313
+        addDummyPost("Crab Hunters", "Pizza and crabs", "Institute Park", "Free crabs", -2, 42.275697, -71.805313);
+        //42.274716, -71.808339
+        addDummyPost("Free Bagels by Hillel", "Bagels", "Campus Center", "Take a break from studying and enjoy free bagels", 1, 42.274716, -71.808339);
+
 //        SQLiteDatabase wdb = dbHelper.getWritableDatabase();
 //        dbHelper.onUpgrade(wdb, 1, 2);
-        listPostDetails();
+        //listPostDetails();
+        sort_option = "recent";
+
+        listOrdered(sort_option);
+
         ListView listView = (ListView) v.findViewById(R.id.feedList);
 
-        Button addButton = (Button) v.findViewById(R.id.addPost_btn);
+        FloatingActionButton addButton = (FloatingActionButton) v.findViewById(R.id.addPost_btn);
         Button delButton = (Button) v.findViewById(R.id.wipeDb_btn);
 
 
@@ -81,7 +92,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
                 ad.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
-                        listPostDetails();
+                        listOrdered(sort_option);
                         if(mMap != null){
                             mMap.clear();
                             dropPins(mMap,newPosts);
@@ -96,8 +107,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
             public void onClick(View v) {
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 db.execSQL("delete from FeedMePosts");
-                listPostDetails();
-            }
+                listOrdered(sort_option);            }
         });
 
 
@@ -129,11 +139,13 @@ public class Tab1 extends android.support.v4.app.Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String input = parent.getItemAtPosition(position).toString();
-                String sort_option = "eventTitle";
                 switch (input) {
 
                     case "Event Title":
                         sort_option = "eventTitle";
+                        break;
+                    case "Recent":
+                        sort_option = "recent";
                         break;
                     case "Food Type":
                         sort_option = "foodType";
@@ -144,6 +156,7 @@ public class Tab1 extends android.support.v4.app.Fragment {
                     case "Votes":
                         sort_option = "upvotes";
                         break;
+
 
                 }
                 listOrdered(sort_option);
@@ -298,9 +311,19 @@ public class Tab1 extends android.support.v4.app.Fragment {
         // Filter results WHERE "title" = 'My Title'
         //String selection = "*"
         //String[] selectionArgs = { "My Title" };
-
+        String sortOrder;
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = sorter + " ASC";
+        if(sorter.equals("upvotes")){
+             sortOrder = sorter + " DESC";
+
+        }
+        else if(sorter.equals("recent")){
+            sortOrder = "ROWID DESC";
+        }
+        else{
+             sortOrder = sorter + " ASC";
+
+        }
         //FeedEntry.COLUMN_NAME_SUBTITLE + " DESC";
 
         Cursor cursor = db.query(

@@ -1,41 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingTop="6dp"
     android:weightSum="1"
-    android:id="@+id/tab1layout">
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="370dp"
-        android:id="@+id/feedList"
-        android:dividerHeight="10.0sp"
-        android:divider="@android:color/transparent"
-        android:focusable="true" />
+    android:id="@+id/tab1layout"
+    android:paddingLeft="@dimen/activity_horizontal_margin">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp">
 
-        <Button
-            android:text="Wipe"
+        <TextView
+            android:text="Sort By: "
             android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:id="@+id/wipeDb_btn"
-            android:layout_weight="1" />
-
-        <Button
-            android:text="ADD"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:id="@+id/addPost_btn"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content"
+            android:id="@+id/sort_title"
+            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="18sp" />
 
         <Spinner
             android:layout_width="wrap_content"
@@ -43,7 +31,52 @@
             android:id="@+id/sort_spinner"
             android:layout_weight="1"
             android:dropDownWidth="match_parent" />
+
+        <Button
+            android:text="Wipe"
+            android:layout_width="61dp"
+            android:layout_height="30dp"
+            android:id="@+id/wipeDb_btn"
+            android:visibility="invisible"
+           />
+
+        <!-- <Button
+             android:text="ADD"
+             android:layout_width="wrap_content"
+             android:layout_height="70dp"
+             android:id="@+id/addPost_btn_old"
+             android:layout_weight="1" />-->
+
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/feedList"
+            android:dividerHeight="10.0sp"
+            android:divider="@android:color/transparent"
+            android:focusable="true" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_gravity="bottom|end"
+            app:fabSize="normal"
+
+            app:srcCompat="@android:drawable/ic_menu_add"
+            android:id="@+id/addPost_btn"
+            app:rippleColor="@color/colorAccent"
+            app:backgroundTint="?attr/colorPrimary"
+            app:elevation="12dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="6dp" />
+    </RelativeLayout>
 
 
 </LinearLayout>
